@@ -23,3 +23,11 @@ guard :restarter, :command => "./run_server" do
   watch(/\.*\.[ch]$/)
 end
 ```
+
+You can also pass in the full set of arguments to `Process.spawn` for more control:
+
+``` ruby
+guard :restarter, :spawn => [{ "CC" => "gcc" }, "make", :err => "/dev/null"] do
+  watch(/\.*\.[ch]$/)
+end
+```

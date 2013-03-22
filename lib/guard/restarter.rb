@@ -10,7 +10,8 @@ module Guard
       super
       @pid = nil
       @command = options[:command]
-      raise "Must provide option :command" unless @command
+      @spawn = options[:spawn]
+      raise "Must provide option :command or :spawn" unless @command || @spawn
     end
 
     def start()
@@ -29,7 +30,15 @@ module Guard
     private
 
     def start_server
-      @pid = spawn @command, :chdir => Dir.pwd, :pgroup => true
+      custom_spawn_args = { chdir: Dir.pwd, pgroup: true }
+      if @command
+        args = [@command, custom_spawn_args]
+      elsif @spawn.last.is_a? Hash
+        args = @spawn[0..-2] << @spawn.last.merge(custom_spawn_args)
+      else
+        args = @spawn << custom_spawn_args
+      end
+      @pid = spawn(*args)
       Process.detach(@pid)
     end
 
@@ -53,7 +62,11 @@ module Guard
     end
 
     def start_info
-      UI.info "Running command '#{@command}'..."
+      if @command
+        UI.info "Running command '#{@command}'..."
+      else
+        UI.info "Running spawn: #{@spawn.inspect}..."
+      end
     end
 
     def run_info
