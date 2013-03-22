@@ -4,7 +4,7 @@ require "guard/watcher"
 
 module Guard
   class Restarter < ::Guard::Guard
-    VERSION = "0.0.1"
+    VERSION = "0.0.2"
 
     def initialize(watchers = [], options = {})
       super
