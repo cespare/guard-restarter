@@ -5,6 +5,7 @@ Gem::Specification.new do |gem|
   gem.name          = "guard-restarter"
   gem.version       = Guard::Restarter::VERSION
   gem.authors       = ["Caleb Spare"]
+  gem.license       = "MIT"
   gem.email         = ["cespare@gmail.com"]
   gem.description   =<<EOS
 guard-restarter is a guard plugin to run a command (often a server) and restart it when files change.
