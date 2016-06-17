@@ -1,3 +1,7 @@
+**NOTE: I neither use nor maintain this project anymore.**
+
+See https://github.com/cespare/reflex
+
 # Guard::Restarter
 
 This is a small guard plugin to run a command (typically a server) and restart it when files change. It
